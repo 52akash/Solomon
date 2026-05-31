@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solomon Capital - Admin Panel</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background: #f0f4f8; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .admin-card { background: #fff; width: 100%; max-width: 450px; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .header { text-align: center; margin-bottom: 25px; border-bottom: 2px solid #f1f5f9; padding-bottom: 15px; }
+        .header h2 { color: #1e293b; font-size: 22px; font-weight: 700; }
+        .header p { color: #64748b; font-size: 13px; margin-top: 5px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 13px; color: #475569; font-weight: 600; margin-bottom: 6px; }
+        .form-group input { width: 100%; padding: 12px 16px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 15px; outline: none; }
+        .form-group input:focus { border-color: #2563eb; }
+        .btn-generate { width: 100%; background: #2563eb; color: #fff; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        .result-box { margin-top: 25px; background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px dashed #cbd5e1; display: none; }
+        .result-label { font-size: 12px; color: #64748b; font-weight: 600; margin-bottom: 6px; }
+        .link-text { word-break: break-all; font-size: 13px; color: #0f172a; background: #fff; padding: 10px; border-radius: 6px; border: 1px solid #e2e8f0; margin-bottom: 15px; font-family: monospace; }
+        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-action { padding: 12px; border: none; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .btn-copy { background: #e2e8f0; color: #334155; }
+        .btn-whatsapp { background: #22c55e; color: #fff; }
+    </style>
+</head>
+<body>
+
+    <div class="admin-card">
+        <div class="header">
+            <h2>Solomon Capital Pvt Ltd</h2>
+            <p>Instant Payment Link Generator</p>
+        </div>
+
+        <div class="form-group">
+            <label for="billAmount">Billing Amount (₹)</label>
+            <input type="number" id="billAmount" placeholder="Example: 500" required>
+        </div>
+
+        <div class="form-group">
+            <label for="custWhatsApp">Customer WhatsApp Number</label>
+            <input type="tel" id="custWhatsApp" placeholder="10-digit number (Optional)">
+        </div>
+
+        <button class="btn-generate" onclick="generatePaymentLink()">Generate & Share Link</button>
+
+        <div class="result-box" id="resultBox">
+            <div class="result-label">Generated Payment Link:</div>
+            <div class="link-text" id="linkDisplay"></div>
+            
+            <div class="action-btns">
+                <button class="btn-action btn-copy" onclick="copyLink()">📋 Copy Link</button>
+                <a class="btn-action btn-whatsapp" id="whatsappLink" href="#" target="_blank">💬 WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Aapka Hosted Base Link
+        const baseLiveUrl = "https://solomoncapital.netlify.app/";
+        const brandName = "Solomon Capital Pvt Ltd";
+
+        function generatePaymentLink() {
+            const amount = document.getElementById('billAmount').value;
+            const whatsappNum = document.getElementById('custWhatsApp').value;
+
+            if(!amount) {
+                alert("Please enter a valid amount!");
+                return;
+            }
+
+            // Perfect URL Parameter System Generation
+            const generatedLink = `${baseLiveUrl}?amt=${amount}&brand=${encodeURIComponent(brandName)}`;
+            
+            // Display Result Box
+            document.getElementById('linkDisplay').innerText = generatedLink;
+            document.getElementById('resultBox').style.display = 'block';
+
+            // WhatsApp Message Text Formatter
+            const message = `Hello, Please complete your payment of *₹${amount}* to *Solomon Capital Pvt Ltd* using this secure link:\n\n${generatedLink}\n\nThank you!`;
+            
+            // WhatsApp Intent URL Link Setup
+            let waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+            if(whatsappNum && whatsappNum.length === 10) {
+                waUrl = `https://api.whatsapp.com/send?phone=91${whatsappNum}&text=${encodeURIComponent(message)}`;
+            }
+            
+            document.getElementById('whatsappLink').href = waUrl;
+        }
+
+        function copyLink() {
+            const linkText = document.getElementById('linkDisplay').innerText;
+            navigator.clipboard.writeText(linkText);
+            alert("Payment link copied to clipboard! 📋");
+        }
+    </script>
+</body>
+</html>
