@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solomon Capital Pvt Ltd</title>
+    <title>Secure Checkout | Branded Pay</title>
     <style>
         * { box-sizing: border-box; }
         body { 
@@ -17,77 +17,140 @@
         }
         .payment-card { 
             background: #ffffff; 
-            padding: 35px 25px; 
-            border-radius: 16px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); 
+            padding: 30px 24px; 
+            border-radius: 24px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06); 
             text-align: center; 
-            max-width: 420px; 
-            width: 90%; 
-            border: 1px solid #eaeaea;
+            max-width: 390px; 
+            width: 92%; 
+            margin: 20px auto;
         }
-        .logo-placeholder {
-            width: 60px;
-            height: 60px;
-            background: #1a73e8;
+        .logo-circle {
+            width: 65px;
+            height: 65px;
+            background: #4d49eb;
             color: white;
             font-size: 24px;
             font-weight: bold;
-            line-height: 60px;
+            line-height: 65px;
             border-radius: 50%;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 15px auto;
         }
-        h2 { color: #202124; font-size: 22px; font-weight: 600; margin: 0 0 8px 0; letter-spacing: 0.5px; }
-        .subtitle { color: #5f6368; font-size: 14px; margin: 0 0 30px 0; }
+        h2 { color: #1e293b; font-size: 24px; font-weight: 700; margin: 0 0 20px 0; }
+        
         .amount-box {
-            background: #f1f3f4;
+            border: 1px dashed #cbd5e1;
+            background: #f8fafc;
             padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 30px;
+            border-radius: 16px;
+            margin-bottom: 20px;
         }
-        .amount-label { font-size: 12px; color: #5f6368; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-        .amount { font-size: 36px; font-weight: 700; color: #202124; }
+        .amount-label { font-size: 13px; color: #64748b; margin-bottom: 4px; }
+        .amount { font-size: 34px; font-weight: 700; color: #0f172a; }
+        
+        /* Integrated Data Table Style */
+        .status-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+        }
+        .status-table td {
+            padding: 12px;
+            font-size: 14px;
+            border-bottom: 1px solid #e2e8f0;
+            color: #334155;
+            text-align: left;
+        }
+        .status-table td.label {
+            font-weight: 600;
+            background-color: #f1f5f9;
+            width: 45%;
+        }
+        .status-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .input-group { text-align: left; margin-bottom: 18px; }
+        .input-group label { display: block; font-size: 14px; font-weight: 600; color: #475569; margin-bottom: 8px; }
+        .input-group input { 
+            width: 100%; 
+            padding: 12px 16px; 
+            font-size: 15px; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 10px; 
+            outline: none; 
+            color: #334155;
+            transition: border-color 0.2s;
+        }
+        .input-group input:focus { border-color: #4d49eb; }
+        .input-group input::placeholder { color: #94a3b8; }
+
         .btn { 
-            background-color: #1a73e8; 
+            background-color: #4d49eb; 
             color: white; 
             border: none; 
-            padding: 15px 24px; 
+            padding: 14px 24px; 
             font-size: 16px; 
-            border-radius: 8px; 
+            border-radius: 12px; 
             cursor: pointer; 
             width: 100%; 
             font-weight: 600; 
-            transition: background-color 0.2s;
-            box-shadow: 0 4px 12px rgba(26,115,232,0.2);
+            margin-top: 10px;
+            box-shadow: 0 4px 12px rgba(77,73,235,0.15);
         }
-        .btn:hover { background-color: #1557b0; }
-        .secure-footer { font-size: 12px; color: #9aa0a6; margin-top: 25px; display: flex; justify-content: center; align-items: center; gap: 5px; }
+        .btn:hover { background-color: #3b37d3; }
+        .footer-text { font-size: 13px; color: #94a3b8; margin-top: 20px; display: flex; justify-content: center; align-items: center; gap: 5px; }
     </style>
 </head>
 <body>
 
     <div class="payment-card">
-        <div class="logo-placeholder">S</div>
-        <h2>SOLOMON CAPITAL PVT LTD</h2>
-        <div class="subtitle">Secure Business Payment Gateway</div>
+        <div class="logo-circle">S</div>
+        <h2>Solomon Capital</h2>
         
         <div class="amount-box">
-            <div class="amount-label">Requested Amount</div>
-            <div class="amount">₹ <span id="paymentAmount">14800</span></div>
+            <div class="amount-label">Amount to Pay</div>
+            <div class="amount">₹<span id="paymentAmount">14800.00</span></div>
         </div>
+
+        <!-- Neutral Info Table Layout -->
+        <table class="status-table">
+            <tr>
+                <td class="label">Reference No:</td>
+                <td>BLSMPLZ0001</td>
+            </tr>
+            <tr>
+                <td class="label">Status:</td>
+                <td style="color: #10b981; font-weight: 600;">ACTIVE</td>
+            </tr>
+        </table>
         
         <form id="paymentForm">
-            <button type="submit" class="btn">Pay Securely via UPI</button>
+            <div class="input-group">
+                <label>Your Name</label>
+                <input type="text" placeholder="Enter your full name" required>
+            </div>
+            
+            <div class="input-group">
+                <label>Mobile Number</label>
+                <input type="tel" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" required>
+            </div>
+
+            <button type="submit" class="btn">Pay via Any UPI App</button>
         </form>
         
-        <div class="secure-footer">
-            🔒 NPCI Certified Secure Gateway
+        <div class="footer-text">
+            🔒 100% Secure & Encrypted Payments
         </div>
     </div>
 
     <script>
         document.getElementById('paymentForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const amount = document.getElementById('paymentAmount').innerText;
+            const amount = "14800";
             const merchantName = "Solomon Capital Pvt Ltd";
             const myUpiId = "BHARATPE2T0X0V5G9B83837@unitype"; 
             const upiUrl = `upi://pay?pa=${myUpiId}&pn=${encodeURIComponent(merchantName)}&am=${amount}&cu=INR&mc=0000&tr=TXN${Date.now()}`;
