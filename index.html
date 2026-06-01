@@ -1,13 +1,3 @@
-
-x
-
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,34 +56,30 @@ x
     </div>
 
     <script>
-        // URL parameters read karne ka logic
         const urlParams = new URLSearchParams(window.location.search);
         const amount = urlParams.get('amt') || '100'; 
         const brand = urlParams.get('brand') || 'Solomon Capital Pvt Ltd';
 
-        // Page UI values update karna
         document.getElementById('paymentAmount').innerText = parseFloat(amount).toFixed(2);
         document.getElementById('brandName').innerText = brand;
         document.getElementById('brandLogo').innerText = brand.charAt(0).toUpperCase();
 
-        // Real UPI Intent Execution Logic
         document.getElementById('paymentForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
             const name = document.getElementById('custName').value;
             const phone = document.getElementById('custPhone').value;
 
-            // Aapki Real UPI ID linked with Solomon Capital
-            const myUpiId = "So.9015@ptyes"; 
+            // Nayi Verified BharatPe Business UPI ID
+            const myUpiId = "BHARATPE2T0X0V5G9B83837@unitype"; 
             const merchantName = brand;
             const transactionId = "TXN" + Date.now(); 
             
-            // Standard UPI Deep-linking format
             const upiUrl = `upi://pay?pa=${myUpiId}&pn=${encodeURIComponent(merchantName)}&am=${amount}&cu=INR&tr=${transactionId}`;
 
-            // Device ke active UPI apps ko direct prompt karna
             window.location.href = upiUrl;
         });
     </script>
 </body>
 </html>
+
