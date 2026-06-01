@@ -58,7 +58,7 @@
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const amount = urlParams.get('amt') || '100'; 
-        const brand = urlParams.get('brand') || 'Solomon Capital Pvt Ltd';
+        const brand = "Solomon Capital Pvt Ltd";
 
         document.getElementById('paymentAmount').innerText = parseFloat(amount).toFixed(2);
         document.getElementById('brandName').innerText = brand;
@@ -66,20 +66,15 @@
 
         document.getElementById('paymentForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            const name = document.getElementById('custName').value;
-            const phone = document.getElementById('custPhone').value;
 
-            // Nayi Verified BharatPe Business UPI ID
             const myUpiId = "BHARATPE2T0X0V5G9B83837@unitype"; 
-            const merchantName = brand;
             const transactionId = "TXN" + Date.now(); 
             
-            const upiUrl = `upi://pay?pa=${myUpiId}&pn=${encodeURIComponent(merchantName)}&am=${amount}&cu=INR&tr=${transactionId}`;
+            // Mode=02 aur OrgID force karta hai business verified look ke liye
+            const upiUrl = `upi://pay?pa=${myUpiId}&pn=${encodeURIComponent(brand)}&am=${amount}&cu=INR&tr=${transactionId}&mode=02&orgid=189999`;
 
             window.location.href = upiUrl;
         });
     </script>
 </body>
 </html>
-
