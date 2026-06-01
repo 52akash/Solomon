@@ -1,15 +1,35 @@
-<!-- ... (Keep same head/style as before) ... -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solomon Capital Pvt Ltd</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f4f9; }
+        .payment-card { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; }
+        h2 { color: #333; margin-bottom: 5px; }
+        .amount { font-size: 32px; font-weight: bold; color: #1a73e8; margin: 20px 0; }
+        .btn { background-color: #1a73e8; color: white; border: none; padding: 12px 24px; font-size: 16px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="payment-card">
+        <h2>SOLOMON CAPITAL PVT LTD</h2>
+        <p style="color: #666; margin-top: 0;">Secure Business Gateway</p>
+        <div class="amount">₹ <span id="paymentAmount">100</span></div>
+        <form id="paymentForm">
+            <button type="submit" class="btn">Pay Securely via UPI</button>
+        </form>
+    </div>
     <script>
         document.getElementById('paymentForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const amount = document.getElementById('paymentAmount').innerText;
-            const merchantName = "Solomon Capital Pvt Ltd"; // Force this name
+            const merchantName = "Solomon Capital Pvt Ltd";
             const myUpiId = "BHARATPE2T0X0V5G9B83837@unitype"; 
-            
-            // humne yahan &mc=0000 (Merchant Code) add kiya hai
             const upiUrl = `upi://pay?pa=${myUpiId}&pn=${encodeURIComponent(merchantName)}&am=${amount}&cu=INR&mc=0000&tr=TXN${Date.now()}`;
-
             window.location.href = upiUrl;
         });
     </script>
-<!-- ... (Keep body content) ... -->
+</body>
+</html>
